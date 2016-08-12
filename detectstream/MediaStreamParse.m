@@ -65,6 +65,7 @@
                     title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
                     tmpepisode = [tmpepisode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
                     if (title == nil) { title = @""; }
+                    if ([title isEqualToString:@"Please wait  seconds..."]) { continue; }
                 }
                 else
                     continue;
@@ -248,6 +249,37 @@
                 }
                 else
                     continue; // Invalid address
+            }
+            else if ([site isEqualToString:@"reddit"]) {
+                if ([ez checkMatch:regextitle pattern:@"\\s:.*anime"]) {
+                    if ([ez checkMatch:regextitle pattern:@"Rewatch"]) {
+                        //rewatch, thread titles are different
+                        regextitle = [ez searchreplace:regextitle pattern:@"\\[Spoilers\\]"];
+                        regextitle = [ez searchreplace:regextitle pattern:@"\\s:.*anime"];
+                        tmpepisode = [ez findMatch:regextitle pattern:@"(E\\d+)" rangeatindex:0];
+                        tmpepisode = [ez searchreplace:tmpepisode pattern:@"E"];
+                        tmpseason = [ez searchreplace:[ez findMatch:regextitle pattern:@"(S\\d+)" rangeatindex:0] pattern:@"S"];
+                        title = [ez findMatch:regextitle pattern:@".*\\sRewatch" rangeatindex:0];
+                        title = [ez searchreplace:title pattern:@"Rewatch"];
+                    }
+                    else {
+                        regextitle = [ez searchreplace:regextitle pattern:@"\\[Spoilers\\]"];
+                        regextitle = [ez searchreplace:regextitle pattern:@"\\sEpisode"];
+                        tmpepisode = [ez findMatch:regextitle pattern:@"(\\d+)" rangeatindex:0];
+                        regextitle = [ez searchreplace:regextitle pattern:@"-\\s.*discussion"];
+                        regextitle = [ez searchreplace:regextitle pattern:@"\\s:.*anime"];
+                        if (tmpepisode == nil) { tmpepisode = @""; }
+                        title = [ez searchreplace:regextitle pattern:tmpepisode];
+                    }
+                    title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                    tmpepisode = [tmpepisode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                    if (title == nil) { title = @""; }
+                }
+                else if ([ez checkMatch:regextitle pattern:@"\\s:.*manga"]) {
+                    //somestuff here
+                }
+                else
+                    continue;
             }
             else if ([site isEqualToString:@"myanimelist"]) {
                 if ([ez checkMatch:url pattern:@"anime\\/\\d+\\/*.*\\/episode\\/\\d+"]) {
