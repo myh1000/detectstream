@@ -28,8 +28,8 @@
 // Browsers
 #import "Safari.h"
 #import "Google Chrome.h"
-#import "OmniWeb.h"
-#import "Roccat.h"
+//#import "OmniWeb.h"
+//#import "Roccat.h"
 
 @import ScriptingBridge;
 
@@ -153,79 +153,79 @@ NSString *const requiresScraping = @"(netflix|funimation)";
         }
     }
     // Check to see Omniweb is running. If so, add tab's title and url to the array
-    for (int s = 0; s <2; s++) {
-        OmniWebApplication * omniweb;
-        switch (s) {
-            case 0:
-                if (![browser checkIdentifier:@"com.omnigroup.OmniWeb5"]) {
-                    continue;
-                }
-                // For version 5
-                omniweb = [SBApplication applicationWithBundleIdentifier:@"com.omnigroup.OmniWeb5"];
-                break;
-            case 1:
-                if (![browser checkIdentifier:@"com.omnigroup.OmniWeb6"]) {
-                    continue;
-                }
-                // For version 6
-                omniweb = [SBApplication applicationWithBundleIdentifier:@"com.omnigroup.OmniWeb6"];
-                break;
-            default:
-                break;
-        }
-        SBElementArray * browsers = [omniweb browsers];
-        for (int i = 0; i < [browsers count]; i++) {
-            OmniWebBrowser * obrowser = browsers[i];
-            SBElementArray * tabs = [obrowser tabs];
-            for (int i = 0 ; i < [tabs count]; i++) {
-                OmniWebTab * tab = tabs[i];
-                NSString * site  = [browser checkURL:[tab address]];
-                if (site.length > 0) {
-                    NSString * DOM;
-                    if ([[[ezregex alloc] init] checkMatch:[tab address] pattern:requiresScraping]){
-                        // Add Source
-                        DOM = [tab source];
-                    }
-                    else{
-                        DOM = nil;
-                    }
-                    NSDictionary * page = [[NSDictionary alloc] initWithObjectsAndKeys:[tab title],@"title",[tab address], @"url", @"OmniWeb", @"browser", site, @"site", DOM, @"DOM", nil];
-                    [pages addObject:page];
-                }
-                else{
-                    continue;
-                }
-            }
-        }
-    }
+//    for (int s = 0; s <2; s++) {
+//        OmniWebApplication * omniweb;
+//        switch (s) {
+//            case 0:
+//                if (![browser checkIdentifier:@"com.omnigroup.OmniWeb5"]) {
+//                    continue;
+//                }
+//                // For version 5
+//                omniweb = [SBApplication applicationWithBundleIdentifier:@"com.omnigroup.OmniWeb5"];
+//                break;
+//            case 1:
+//                if (![browser checkIdentifier:@"com.omnigroup.OmniWeb6"]) {
+//                    continue;
+//                }
+//                // For version 6
+//                omniweb = [SBApplication applicationWithBundleIdentifier:@"com.omnigroup.OmniWeb6"];
+//                break;
+//            default:
+//                break;
+//        }
+//        SBElementArray * browsers = [omniweb browsers];
+//        for (int i = 0; i < [browsers count]; i++) {
+//            OmniWebBrowser * obrowser = browsers[i];
+//            SBElementArray * tabs = [obrowser tabs];
+//            for (int i = 0 ; i < [tabs count]; i++) {
+//                OmniWebTab * tab = tabs[i];
+//                NSString * site  = [browser checkURL:[tab address]];
+//                if (site.length > 0) {
+//                    NSString * DOM;
+//                    if ([[[ezregex alloc] init] checkMatch:[tab address] pattern:requiresScraping]){
+//                        // Add Source
+//                        DOM = [tab source];
+//                    }
+//                    else{
+//                        DOM = nil;
+//                    }
+//                    NSDictionary * page = [[NSDictionary alloc] initWithObjectsAndKeys:[tab title],@"title",[tab address], @"url", @"OmniWeb", @"browser", site, @"site", DOM, @"DOM", nil];
+//                    [pages addObject:page];
+//                }
+//                else{
+//                    continue;
+//                }
+//            }
+//        }
+//    }
     // Check to see Roccat is running. If so, add tab's title and url to the array
-    if ([browser checkIdentifier:@"org.Runecats.Roccat"]) {
-        RoccatApplication * roccat = [SBApplication applicationWithBundleIdentifier:@"org.Runecats.Roccat"];
-        SBElementArray * browsers = [roccat browserWindows];
-        for (int i = 0; i < [browsers count]; i++) {
-            RoccatBrowserWindow * rbrowser = browsers[i];
-            SBElementArray * tabs = [rbrowser tabs];
-            for (int i = 0 ; i < [tabs count]; i++) {
-                RoccatTab * tab = tabs[i];
-                NSString * site  = [browser checkURL:[tab URL]];
-                if (site.length > 0) {
-                    NSString * DOM;
-                    if ([[[ezregex alloc] init] checkMatch:[tab URL] pattern:requiresScraping]){
-                        // Include DOM
-                        DOM = [tab source];
-                    }
-                    else{
-                        DOM = nil;
-                    }
-                    NSDictionary * page = [[NSDictionary alloc] initWithObjectsAndKeys:[tab title],@"title",[tab URL], @"url", @"Roccat", @"browser", site, @"site", DOM, @"DOM", nil];
-                    [pages addObject:page];
-                }
-                else{
-                    continue;
-                }
-            }
-        }
-    }
+//    if ([browser checkIdentifier:@"org.Runecats.Roccat"]) {
+//        RoccatApplication * roccat = [SBApplication applicationWithBundleIdentifier:@"org.Runecats.Roccat"];
+//        SBElementArray * browsers = [roccat browserWindows];
+//        for (int i = 0; i < [browsers count]; i++) {
+//            RoccatBrowserWindow * rbrowser = browsers[i];
+//            SBElementArray * tabs = [rbrowser tabs];
+//            for (int i = 0 ; i < [tabs count]; i++) {
+//                RoccatTab * tab = tabs[i];
+//                NSString * site  = [browser checkURL:[tab URL]];
+//                if (site.length > 0) {
+//                    NSString * DOM;
+//                    if ([[[ezregex alloc] init] checkMatch:[tab URL] pattern:requiresScraping]){
+//                        // Include DOM
+//                        DOM = [tab source];
+//                    }
+//                    else{
+//                        DOM = nil;
+//                    }
+//                    NSDictionary * page = [[NSDictionary alloc] initWithObjectsAndKeys:[tab title],@"title",[tab URL], @"url", @"Roccat", @"browser", site, @"site", DOM, @"DOM", nil];
+//                    [pages addObject:page];
+//                }
+//                else{
+//                    continue;
+//                }
+//            }
+//        }
+//    }
     return pages;
 }
 -(BOOL)checkIdentifier:(NSString*)identifier{

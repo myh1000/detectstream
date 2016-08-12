@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "059F4771E262AFC9CC08F3AD060F2C374A80BB9C",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "059F4771E262AFC9CC08F3AD060F2C374A80BB9C" : 0,
+    "A969EE05C616F468823DDD48BE7B82DFC9463570" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "6B6D7375-2683-451B-A33D-026BD9AF9BA6",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "059F4771E262AFC9CC08F3AD060F2C374A80BB9C" : "detectstream",
+    "A969EE05C616F468823DDD48BE7B82DFC9463570" : "..\/.."
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "detectstream",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "detectstream.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/chikorita157\/detectstream.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "059F4771E262AFC9CC08F3AD060F2C374A80BB9C"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Atelier-Shiori\/malupdaterosx-cocoa.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A969EE05C616F468823DDD48BE7B82DFC9463570"
+    }
+  ]
+}
