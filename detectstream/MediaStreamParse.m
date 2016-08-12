@@ -60,10 +60,10 @@
                     regextitle = [ez searchreplace:regextitle pattern:@"\\(Dub\\)"];
                     regextitle = [ez searchreplace:regextitle pattern:@"\\(Sub\\)"];
                     regextitle = [ez searchreplace:regextitle pattern:@"- Watch.*"];
-                    regextitle = [ez searchreplace:regextitle pattern:@"\\sEpisode"];
-                    tmpepisode = [ez findMatch:regextitle pattern:@"(\\d+)" rangeatindex:0];
-                    title = [ez searchreplace:regextitle pattern:tmpepisode];
-                    title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                    tmpepisode = [ez findMatch:regextitle pattern:@"\\sEpisode.*" rangeatindex:0];
+                    regextitle = [ez searchreplace:regextitle pattern:@"\\sEpisode.*"];
+                    tmpepisode = [ez findMatch:tmpepisode pattern:@"(\\d+)" rangeatindex:0];
+                    title = [regextitle stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
                     tmpepisode = [tmpepisode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
                     if (title == nil) { title = @""; }
                     if ([title isEqualToString:@"Please wait  seconds..."]) { continue; }
@@ -263,7 +263,7 @@
                         title = [ez findMatch:regextitle pattern:@".*\\sRewatch" rangeatindex:0];
                         title = [ez searchreplace:title pattern:@"Rewatch"];
                     }
-                    else {
+                    else if ([ez checkMatch:regextitle pattern:@"discussion"]) {
                         regextitle = [ez searchreplace:regextitle pattern:@"\\[Spoilers\\]"];
                         regextitle = [ez searchreplace:regextitle pattern:@"\\sEpisode"];
                         tmpepisode = [ez findMatch:regextitle pattern:@"(\\d+)" rangeatindex:0];
