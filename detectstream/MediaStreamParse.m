@@ -61,10 +61,8 @@
                     regextitle = [ez searchreplace:regextitle pattern:@"\\(Sub\\)"];
                     regextitle = [ez searchreplace:regextitle pattern:@"- Watch.*"];
                     tmpepisode = [ez findMatch:regextitle pattern:@"\\sEpisode.*" rangeatindex:0];
-                    regextitle = [ez searchreplace:regextitle pattern:@"\\sEpisode.*"];
                     tmpepisode = [ez findMatch:tmpepisode pattern:@"(\\d+)" rangeatindex:0];
-                    title = [regextitle stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-                    tmpepisode = [tmpepisode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                    title = [ez searchreplace:regextitle pattern:@"\\sEpisode.*"];
                     if (title == nil) { title = @""; }
                     if ([title isEqualToString:@"Please wait  seconds..."]) { continue; }
                 }
@@ -256,7 +254,7 @@
                     if ([ez checkMatch:regextitle pattern:@"Rewatch"]) {
                         //rewatch, thread titles are different
                         regextitle = [ez searchreplace:regextitle pattern:@"\\[Spoilers\\]"];
-                        regextitle = [ez searchreplace:regextitle pattern:@"\\s:.*anime"];
+                        regextitle = [ez searchreplace:regextitle pattern:@"\\s: anime"];
                         tmpepisode = [ez findMatch:regextitle pattern:@"(E\\d+)" rangeatindex:0];
                         tmpepisode = [ez searchreplace:tmpepisode pattern:@"E"];
                         tmpseason = [ez searchreplace:[ez findMatch:regextitle pattern:@"(S\\d+)" rangeatindex:0] pattern:@"S"];
@@ -272,12 +270,20 @@
                         if (tmpepisode == nil) { tmpepisode = @""; }
                         title = [ez searchreplace:regextitle pattern:tmpepisode];
                     }
-                    title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-                    tmpepisode = [tmpepisode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
                     if (title == nil) { title = @""; }
                 }
                 else if ([ez checkMatch:regextitle pattern:@"\\s:.*manga"]) {
-                    //somestuff here
+                    //hacky way to make it manga for mal updater
+                    if ([ez checkMatch:regextitle pattern:@"\\[DISC\\]"]) {
+                        site = @"manga";
+                        regextitle = [ez searchreplace:regextitle pattern:@"\\[DISC\\]|\\[Disc\\]|\\[disc\\]"];
+                        regextitle = [ez searchreplace:regextitle pattern:@"\\(|\\)"];
+                        regextitle = [ez searchreplace:regextitle pattern:@"\\s: manga"];
+                        tmpepisode = [ez findMatch:regextitle pattern:@"[\\d]+$" rangeatindex:0];
+                        regextitle = [ez searchreplace:regextitle pattern:@"[\\d]+$"];
+                        regextitle = [ez searchreplace:regextitle pattern:@"Ch\\.|Chapter|ch\\.|chapter"];
+                        title = [ez searchreplace:regextitle pattern:@"\\s-"];
+                    }
                 }
                 else
                     continue;
@@ -326,6 +332,9 @@
             }
             if (title.length == 0) {
                 continue;
+            }
+            if ([site isEqualToString:@"manga"]) {
+                season = @(1);
             }
             // Add to Final Array
             NSDictionary * frecord = [[NSDictionary alloc] initWithObjectsAndKeys:title, @"title", episode, @"episode", season, @"season", [m objectForKey:@"browser"], @"browser", site, @"site", nil];
