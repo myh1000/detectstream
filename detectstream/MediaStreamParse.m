@@ -275,7 +275,7 @@
                     //hacky way to make it manga for mal updater
                     if ([ez checkMatch:regextitle pattern:@"\\[DISC\\]"]) {
                         site = @"manga";
-                        regextitle = [ez searchreplace:regextitle pattern:@"\\[DISC\\]|\\[Disc\\]|\\[disc\\]"];
+                        regextitle = [ez searchreplace:regextitle pattern:@"(?i)\\[DISC\\]"];
                         regextitle = [ez searchreplace:regextitle pattern:@"\\(|\\)"];
                         regextitle = [ez searchreplace:regextitle pattern:@"\\s: manga"];
                         tmpepisode = [ez findMatch:regextitle pattern:@"[\\d]+$" rangeatindex:0];
