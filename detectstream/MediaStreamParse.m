@@ -279,15 +279,17 @@
                         regextitle = [ez searchreplace:regextitle pattern:@"(?i)\\[DISC\\]"];
                         regextitle = [ez searchreplace:regextitle pattern:@"\\(|\\)"];
                         regextitle = [ez searchreplace:regextitle pattern:@"\\s: manga"];
-                        tmpepisode = [ez findMatch:regextitle pattern:@"[\\d]+$" rangeatindex:0];
-                        regextitle = [ez searchreplace:regextitle pattern:@"[\\d]+$"];
-                        regextitle = [ez searchreplace:regextitle pattern:@"Ch\\.|Chapter|ch\\.|chapter|\\sch\\s|\\sCh\\s"];
+                        tmpepisode = [ez findMatch:regextitle pattern:@"(\\d+)(?!.*\\d)" rangeatindex:0];
+                        regextitle = [ez searchreplace:regextitle pattern:@"(\\d+)(?!.*\\d).*"];
+                        regextitle = [ez searchreplace:regextitle pattern:@"(?i)chapter|ch\\..*|\\sch\\s.*|ch\\d.*"];
                         title = [ez searchreplace:regextitle pattern:@"\\s-"];
                     }
+                    if (title == nil) { title = @""; }
                 }
                 else
                     continue;
             }
+            
             else if ([site isEqualToString:@"myanimelist"]) {
                 if ([ez checkMatch:url pattern:@"anime\\/\\d+\\/*.*\\/episode\\/\\d+"]) {
                     regextitle = [ez searchreplace:regextitle pattern:@"- MyAnimeList.net"];
