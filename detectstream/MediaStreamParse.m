@@ -69,6 +69,22 @@
                 else
                     continue;
             }
+            else if ([site isEqualToString:@"kissanime"]) {
+                //some regex here
+                if ([ez checkMatch:url pattern:@"[^/]+\\/.*id=[0-9]+"]) {
+                    //sanitation
+                    regextitle = [ez searchreplace:regextitle pattern:@"\\(Dub\\)"];
+                    regextitle = [ez searchreplace:regextitle pattern:@"\\(Sub\\)"];
+                    regextitle = [ez searchreplace:regextitle pattern:@"- Watch.*"];
+                    tmpepisode = [ez findMatch:regextitle pattern:@"\\sEpisode.*" rangeatindex:0];
+                    tmpepisode = [ez findMatch:tmpepisode pattern:@"(\\d+)" rangeatindex:0];
+                    title = [ez searchreplace:regextitle pattern:@"\\sEpisode.*"];
+                    if (title == nil) { title = @""; }
+                    if ([title isEqualToString:@"Please wait  seconds..."]) { continue; }
+                }
+                else
+                    continue;
+            }
             else if ([site isEqualToString:@"daisuki"]) {
                 //Add Regex Arguments for daisuki.net
                 if ([ez checkMatch:url pattern:@"^(?=.*\\banime\\b)(?=.*\\bwatch\\b).*"]) {
