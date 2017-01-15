@@ -297,7 +297,7 @@
                         regextitle = [ez searchreplace:regextitle pattern:@"\\s: manga"];
                         tmpepisode = [ez findMatch:regextitle pattern:@"(\\d+)(?!.*\\d)" rangeatindex:0];
                         regextitle = [ez searchreplace:regextitle pattern:@"(\\d+)(?!.*\\d).*"];
-                        regextitle = [ez searchreplace:regextitle pattern:@"(?i)chapter|ch\\..*|\\sch\\s.*|ch\\d.*"];
+                        regextitle = [ez searchreplace:regextitle pattern:@"(?i)chapter|chpt\\..*|\\schpt\\s.*|chp\\..*|\\schp\\s.*|ch\\..*|\\sch\\s.*|ch\\d.*"];
                         title = [ez searchreplace:regextitle pattern:@"\\s-"];
                     }
                     if (title == nil) { title = @""; }
