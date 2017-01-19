@@ -60,26 +60,11 @@
                     regextitle = [ez searchreplace:regextitle pattern:@"\\(Dub\\)"];
                     regextitle = [ez searchreplace:regextitle pattern:@"\\(Sub\\)"];
                     regextitle = [ez searchreplace:regextitle pattern:@"- Watch.*"];
-                    tmpepisode = [ez findMatch:regextitle pattern:@"\\sEpisode.*" rangeatindex:0];
+                    tmpepisode = [ez findMatch:regextitle pattern:@"(?i)(\\sEpisode|\\sOVA).*" rangeatindex:0];
                     tmpepisode = [ez findMatch:tmpepisode pattern:@"(\\d+)" rangeatindex:0];
-                    title = [ez searchreplace:regextitle pattern:@"\\sEpisode.*"];
+                    title = [ez searchreplace:regextitle pattern:@"(?i)(\\sEpisode|\\sOVA).*"];
                     if (title == nil) { title = @""; }
-                    if ([title isEqualToString:@"Please wait  seconds..."]) { continue; }
-                }
-                else
-                    continue;
-            }
-            else if ([site isEqualToString:@"kissanime"]) {
-                //some regex here
-                if ([ez checkMatch:url pattern:@"[^/]+\\/.*id=[0-9]+"]) {
-                    //sanitation
-                    regextitle = [ez searchreplace:regextitle pattern:@"\\(Dub\\)"];
-                    regextitle = [ez searchreplace:regextitle pattern:@"\\(Sub\\)"];
-                    regextitle = [ez searchreplace:regextitle pattern:@"- Watch.*"];
-                    tmpepisode = [ez findMatch:regextitle pattern:@"\\sEpisode.*" rangeatindex:0];
-                    tmpepisode = [ez findMatch:tmpepisode pattern:@"(\\d+)" rangeatindex:0];
-                    title = [ez searchreplace:regextitle pattern:@"\\sEpisode.*"];
-                    if (title == nil) { title = @""; }
+                    if ([tmpepisode isEqualToString:@""]) { tmpepisode = @"1"; }
                     if ([title isEqualToString:@"Please wait  seconds..."]) { continue; }
                 }
                 else
@@ -282,9 +267,8 @@
                         tmpepisode = [ez findMatch:regextitle pattern:@"(\\d+)" rangeatindex:0];
                         regextitle = [ez searchreplace:regextitle pattern:@"\\sEpisode"];
                         regextitle = [ez searchreplace:regextitle pattern:@"-\\s.*(?i)discussion"];
-                        regextitle = [ez searchreplace:regextitle pattern:@"\\s:.*anime"];
-                        if (tmpepisode == nil) { tmpepisode = @""; }
-                        title = [ez searchreplace:regextitle pattern:tmpepisode];
+                        title = [ez searchreplace:regextitle pattern:@"\\s:.*anime"];
+                        if ([tmpepisode isEqualToString:@""]) { tmpepisode = @"1"; }
                     }
                     if (title == nil) { title = @""; }
                 }
@@ -305,6 +289,7 @@
                         }
                         title = [ez searchreplace:regextitle pattern:@"\\s-"];
                     }
+                    if ([tmpepisode isEqualToString:@""]) { tmpepisode = @"1"; }
                     if (title == nil) { title = @""; }
                 }
                 else
