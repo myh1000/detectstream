@@ -279,9 +279,9 @@
                     }
                     else if ([ez checkMatch:regextitle pattern:@"discussion"]) {
                         regextitle = [ez searchreplace:regextitle pattern:@"\\[Spoilers\\]"];
-                        regextitle = [ez searchreplace:regextitle pattern:@"\\sEpisode"];
                         tmpepisode = [ez findMatch:regextitle pattern:@"(\\d+)" rangeatindex:0];
-                        regextitle = [ez searchreplace:regextitle pattern:@"-\\s.*discussion"];
+                        regextitle = [ez searchreplace:regextitle pattern:@"\\sEpisode"];
+                        regextitle = [ez searchreplace:regextitle pattern:@"-\\s.*(?i)discussion"];
                         regextitle = [ez searchreplace:regextitle pattern:@"\\s:.*anime"];
                         if (tmpepisode == nil) { tmpepisode = @""; }
                         title = [ez searchreplace:regextitle pattern:tmpepisode];
