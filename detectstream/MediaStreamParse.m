@@ -264,7 +264,7 @@
                     }
                     else if ([ez checkMatch:regextitle pattern:@"discussion"]) {
                         regextitle = [ez searchreplace:regextitle pattern:@"\\[Spoilers\\]"];
-                        tmpepisode = [ez findMatch:regextitle pattern:@"(\\d+)" rangeatindex:0];
+                        tmpepisode = [ez findMatch:regextitle pattern:@"(\\d+)(?!.*\\d)" rangeatindex:0];
                         regextitle = [ez searchreplace:regextitle pattern:@"\\sEpisode"];
                         regextitle = [ez searchreplace:regextitle pattern:@"-\\s.*(?i)discussion"];
                         title = [ez searchreplace:regextitle pattern:@"\\s:.*anime"];
